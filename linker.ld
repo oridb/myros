@@ -17,16 +17,18 @@ limitations under the License.
 ENTRY(start)
 
 SECTIONS {
-  . = 1M;
+	. = 16M;
+	.boot : ALIGN(4K) {
+		/* ensure that the multiboot header is at the beginning */
+		KEEP(*(.multiboot_header))
+  	}
 
-  .boot :
-  {
-    /* ensure that the multiboot header is at the beginning */
-    KEEP(*(.multiboot_header))
-  }
+	.text : ALIGN(4K) {
+		*(.text)
+		*(.rodata*)
+	}
 
-  .text :
-  {
-    *(.text)
-  }
+	.data : ALIGN(4K) {
+		*(.data)
+	}
 }

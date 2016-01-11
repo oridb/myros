@@ -1,0 +1,12 @@
+bin kernel {ldscript=linker.ld, runtime=none} =
+	main.myr
+
+	boot+x64.s
+	longinit+x64.s
+	multiboot+x64.s
+;;
+
+gen iso {dep=kernel, dep=grub.cfg} =
+	sh ./geniso.sh myros.iso
+;;
+
